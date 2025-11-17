@@ -1,40 +1,59 @@
-// Geçici memory database
-let linksDB = {};
+// Geçici memory database - gerçek uygulamada FaunaDB kullan
+let linksDB = {
+  '1ok255': { 
+    longUrl: 'https://google.com', 
+    clicks: 0 
+  },
+  'test': { 
+    longUrl: 'https://github.com', 
+    clicks: 0 
+  }
+};
 
 exports.handler = async function(event, context) {
+  console.log('Redirect function called:', event.path);
+  
+  // Path'i parse et - /r/:slug formatında
   const path = event.path;
-  const slug = path.startsWith('/r/') ? path.split('/r/')[1] : null;
+  const slugMatch = path.match(/\/r\/(.+)/);
+  const slug = slugMatch ? slugMatch[1] : null;
+  
+  console.log('Extracted slug:', slug);
   
   if (!slug) {
     return {
       statusCode: 302,
       headers: {
-        'Location': 'https://ornate-piroshki-d0109f.netlify.app'
+        'Location': '/'
       }
     };
   }
   
   // Linki bul (geçici memory'den)
   const link = linksDB[slug];
+  console.log('Found link:', link);
   
   if (!link) {
     return {
       statusCode: 302,
       headers: {
-        'Location': 'https://ornate-piroshki-d0109f.netlify.app/404'
+        'Location': '/#not-found'
       }
     };
   }
   
   // Tıklama sayısını artır
   linksDB[slug].clicks++;
+  console.log('Updated clicks:', linksDB[slug].clicks);
   
   // Her 3 tıklamada bir reklam göster
-  if (link.clicks % 3 === 0) {
+  if (linksDB[slug].clicks % 3 === 0) {
+    console.log('Showing ad page');
     return showAdPage(link.longUrl, slug);
   }
   
   // Direkt yönlendir
+  console.log('Direct redirect to:', link.longUrl);
   return {
     statusCode: 302,
     headers: {
@@ -48,7 +67,7 @@ function showAdPage(originalUrl, slug) {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Redirecting... - 12hrs.net</title>
+  <title>Redirecting... - Link Kısaltıcı Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { 
@@ -58,6 +77,10 @@ function showAdPage(originalUrl, slug) {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .container {
       max-width: 500px;
@@ -66,6 +89,7 @@ function showAdPage(originalUrl, slug) {
       padding: 30px;
       border-radius: 15px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
     .ad-section {
       background: white;
@@ -102,31 +126,49 @@ function showAdPage(originalUrl, slug) {
       cursor: pointer;
       font-size: 14px;
       margin: 10px 5px;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #5a6fd8;
+      transform: translateY(-2px);
+    }
+    .security-badge {
+      background: #48bb78;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-left: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🔄 Redirecting...</h1>
-    <p>You're being redirected to your destination</p>
+    <h1>🔄 Yönlendiriliyorsunuz...</h1>
+    <p>Hedef sayfanıza yönlendiriliyorsunuz</p>
     
     <div class="countdown" id="countdown">5</div>
     
     <div class="ad-section">
-      <h3>📢 Sponsored Content</h3>
+      <h3>📢 Sponsor İçerik</h3>
+      <p><small>Ücretsiz hizmetimizi bu reklamı görüntüleyerek destekleyin</small></p>
       <div id="ad-content">
-        <!-- PropellerAds reklamı -->
-        <script src="https://3nbf4.com/act/files/tag.min.js?z=10200882"></script>
+        <!-- Reklam içeriği -->
+        <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin: 10px 0;">
+          <h4 style="margin: 0 0 10px 0; color: #2d3748;">🚀 Link Kısaltıcı Pro</h4>
+          <p style="margin: 0; color: #4a5568; font-size: 14px;">Profesyonel link yönetimi için Chrome eklentimizi deneyin!</p>
+        </div>
       </div>
-      <p><small>Support our free service by viewing this ad</small></p>
+      <span class="security-badge">🔒 Güvenli</span>
     </div>
     
     <div class="loader"></div>
     
-    <p>You will be redirected automatically in <span id="seconds">5</span> seconds</p>
+    <p><span id="seconds">5</span> saniye içinde otomatik olarak yönlendirileceksiniz</p>
     
     <div>
-      <button class="btn" onclick="skipAd()">Skip Ad</button>
+      <button class="btn" onclick="skipAd()">Reklamı Geç</button>
+      <button class="btn" onclick="stayOnPage()">Burada Kal</button>
     </div>
   </div>
 
@@ -154,6 +196,14 @@ function showAdPage(originalUrl, slug) {
     function skipAd() {
       clearInterval(countdownInterval);
       redirectToDestination();
+    }
+    
+    function stayOnPage() {
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = '✓';
+      document.getElementById('seconds').textContent = '0';
+      document.querySelector('h1').textContent = '✅ Reklamı Görüntülediniz';
+      document.querySelector('p').textContent = 'Destek için teşekkürler!';
     }
     
     // Start countdown when page loads
