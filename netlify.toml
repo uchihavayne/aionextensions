@@ -2,19 +2,21 @@
   publish = "public"
   functions = "netlify/functions"
 
+# Redirect short links to redirect function
 [[redirects]]
   from = "/r/*"
   to = "/.netlify/functions/redirect"
   status = 200
 
-# API routes
+# API routes (create short link, list, etc.)
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# SPA routing
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
