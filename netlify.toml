@@ -7,13 +7,13 @@
   to = "/.netlify/functions/redirect"
   status = 200
 
-# API endpoint'i
+# API routes
 [[redirects]]
-  from = "/api/shorten"
-  to = "/.netlify/functions/shorten"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
-# Mevcut siten için
+# SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
