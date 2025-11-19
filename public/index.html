@@ -51,6 +51,92 @@
             margin: 0 auto;
         }
 
+        /* EMOJI ANIMATIONS */
+        .emoji-rocket {
+            display: inline-block;
+            animation: rocketFloat 3s ease-in-out infinite;
+        }
+
+        .emoji-sound {
+            display: inline-block;
+            animation: soundPulse 2s ease-in-out infinite;
+        }
+
+        .emoji-link {
+            display: inline-block;
+            animation: linkSpin 4s linear infinite;
+        }
+
+        .emoji-message {
+            display: inline-block;
+            animation: messageBounce 2.5s ease-in-out infinite;
+        }
+
+        .emoji-coffee {
+            display: inline-block;
+            animation: coffeeSteam 3s ease-in-out infinite;
+        }
+
+        .emoji-theme {
+            display: inline-block;
+            animation: themeRotate 4s ease-in-out infinite;
+        }
+
+        .emoji-install {
+            display: inline-block;
+            animation: installPulse 2s ease-in-out infinite;
+        }
+
+        .emoji-guide {
+            display: inline-block;
+            animation: guideWiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes rocketFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        @keyframes soundPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes linkSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes messageBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            25% { transform: translateY(-5px) scale(1.05); }
+            50% { transform: translateY(0px) scale(1); }
+            75% { transform: translateY(-3px) scale(1.02); }
+        }
+
+        @keyframes coffeeSteam {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-2px) rotate(-2deg); }
+            75% { transform: translateY(-1px) rotate(2deg); }
+        }
+
+        @keyframes themeRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+
+        @keyframes installPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes guideWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+
         /* MODAL STYLES */
         .modal-overlay {
             display: none;
@@ -242,6 +328,10 @@
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: 500;
+        }
+
+        .platform-badge.auto-insert {
+            background: linear-gradient(135deg, #48bb78, #38a169);
         }
 
         .feedback-form {
@@ -692,8 +782,7 @@
                     </div>
                     
                     <div style="text-align: center; margin-top: 25px;">
-                        <button class="btn" onclick="closeModal()">🚀 Got It!</button>
-                        <button class="btn btn-secondary" onclick="openGuideModal(currentExtension)">📖 User Guide</button>
+                        <button class="btn" onclick="closeModal()"><span class="emoji-rocket">🚀</span> Got It!</button>
                     </div>
                 </div>
                 
@@ -724,7 +813,7 @@
                     
                     <div style="text-align: center;">
                         <button class="btn" onclick="submitFeedback()">📤 Submit Feedback</button>
-                        <button class="btn btn-secondary" onclick="closeModal()">🚀 Explore Other Extensions</button>
+                        <button class="btn btn-secondary" onclick="closeModal()"><span class="emoji-rocket">🚀</span> Explore Other Extensions</button>
                     </div>
                 </div>
                 
@@ -739,10 +828,10 @@
         <!-- Header Controls -->
         <div class="header-controls">
             <button class="theme-toggle" id="themeToggle">
-                <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+                <span class="emoji-theme" id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
             </button>
             <a href="https://buymeacoffee.com/12hrsofficp" target="_blank" class="coffee-btn">
-                ☕ Buy Me a Coffee
+                <span class="emoji-coffee">☕</span> Buy Me a Coffee
             </a>
         </div>
 
@@ -756,7 +845,7 @@
 
         <!-- Main Header -->
         <div class="main-header">
-            <h1>🚀 Pro Chrome Extensions</h1>
+            <h1><span class="emoji-rocket">🚀</span> Pro Chrome Extensions</h1>
             <p class="subtitle">Enhance Your Browsing Experience with Professional Tools</p>
             <p class="description">
                 Discover our powerful Chrome extensions designed to boost your productivity and enhance multimedia experience.
@@ -776,7 +865,7 @@
             <!-- Sound Booster Pro Card -->
             <div class="extension-card">
                 <div class="card-header">
-                    <div class="extension-icon">🔊</div>
+                    <div class="extension-icon emoji-sound">🔊</div>
                     <h2 class="extension-title">Sound Booster Pro</h2>
                     <p class="extension-subtitle">Professional Audio Enhancement up to 500% Volume</p>
                 </div>
@@ -797,19 +886,19 @@
                     
                     <div class="features">
                         <div class="feature">
-                            <h4>🎛️ 3-Band EQ</h4>
+                            <h4><span class="emoji-sound">🎛️</span> 3-Band EQ</h4>
                             <p>Bass, Mid, Treble controls</p>
                         </div>
                         <div class="feature">
-                            <h4>⚡ 500% Boost</h4>
+                            <h4><span class="emoji-install">⚡</span> 500% Boost</h4>
                             <p>Extreme volume enhancement</p>
                         </div>
                         <div class="feature">
-                            <h4>🌙 Dark Mode</h4>
+                            <h4><span class="emoji-theme">🌙</span> Dark Mode</h4>
                             <p>Eye-friendly interface</p>
                         </div>
                         <div class="feature">
-                            <h4>🎯 Smart Presets</h4>
+                            <h4><span class="emoji-guide">🎯</span> Smart Presets</h4>
                             <p>One-click audio profiles</p>
                         </div>
                     </div>
@@ -819,15 +908,15 @@
                         Professional audio quality with zero distortion.
                     </p>
                     
-                    <a href="#" class="btn" onclick="openModal('install', 'Sound Booster Pro')">📥 Install Sound Booster</a>
-                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('sound-booster')">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Sound Booster Pro')"><span class="emoji-install">📥</span> Install Sound Booster</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('sound-booster')"><span class="emoji-guide">📖</span> User Guide</a>
                 </div>
             </div>
 
             <!-- Link Shortener Pro Card -->
             <div class="extension-card">
                 <div class="card-header">
-                    <div class="extension-icon">🔗</div>
+                    <div class="extension-icon emoji-link">🔗</div>
                     <h2 class="extension-title">Link Shortener Pro</h2>
                     <p class="extension-subtitle">Professional URL Management & Tracking</p>
                 </div>
@@ -835,19 +924,19 @@
                 <div class="card-content">
                     <div class="features">
                         <div class="feature">
-                            <h4>🚀 Instant Shortening</h4>
+                            <h4><span class="emoji-rocket">🚀</span> Instant Shortening</h4>
                             <p>Right-click any link</p>
                         </div>
                         <div class="feature">
-                            <h4>📊 Click Analytics</h4>
+                            <h4><span class="emoji-guide">📊</span> Click Analytics</h4>
                             <p>Track link performance</p>
                         </div>
                         <div class="feature">
-                            <h4>🎯 Custom Names</h4>
+                            <h4><span class="emoji-message">🎯</span> Custom Names</h4>
                             <p>Personalized URLs</p>
                         </div>
                         <div class="feature">
-                            <h4>💾 History Manager</h4>
+                            <h4><span class="emoji-install">💾</span> History Manager</h4>
                             <p>Access previous links</p>
                         </div>
                     </div>
@@ -857,15 +946,15 @@
                         Clean interface with powerful features.
                     </p>
                     
-                    <a href="#" class="btn" onclick="openModal('install', 'Link Shortener Pro')">📥 Install Link Shortener</a>
-                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('link-shortener')">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Link Shortener Pro')"><span class="emoji-install">📥</span> Install Link Shortener</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('link-shortener')"><span class="emoji-guide">📖</span> User Guide</a>
                 </div>
             </div>
 
             <!-- Universal Message Extension Card -->
             <div class="extension-card">
                 <div class="card-header">
-                    <div class="extension-icon">💬</div>
+                    <div class="extension-icon emoji-message">💬</div>
                     <h2 class="extension-title">Universal Message</h2>
                     <p class="extension-subtitle">Quick Message Templates for All Platforms</p>
                 </div>
@@ -873,34 +962,34 @@
                 <div class="card-content">
                     <div class="features">
                         <div class="feature">
-                            <h4>📱 Multi-Platform</h4>
-                            <p>WhatsApp, Telegram, Discord etc.</p>
+                            <h4><span class="emoji-message">📱</span> Multi-Platform</h4>
+                            <p>WhatsApp, Telegram, Discord</p>
                         </div>
                         <div class="feature">
-                            <h4>🚀 Quick Templates</h4>
+                            <h4><span class="emoji-rocket">🚀</span> Quick Templates</h4>
                             <p>One-click message insertion</p>
                         </div>
                         <div class="feature">
-                            <h4>🎨 Dark Mode</h4>
+                            <h4><span class="emoji-theme">🎨</span> Dark Mode</h4>
                             <p>Comfortable interface</p>
                         </div>
                         <div class="feature">
-                            <h4>⚡ Smart Detection</h4>
+                            <h4><span class="emoji-install">⚡</span> Smart Detection</h4>
                             <p>Auto-platform recognition</p>
                         </div>
                     </div>
                     
                     <div style="background: var(--bg-primary); padding: 20px; border-radius: 12px; margin: 25px 0; border: 1px solid var(--border);">
-                        <h4 style="margin-bottom: 10px; color: var(--text-primary);">🔄 Platform Support:</h4>
+                        <h4 style="margin-bottom: 10px; color: var(--text-primary);"><span class="emoji-message">🔄</span> Platform Support:</h4>
                         <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">WhatsApp Auto Insert Mode</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Telegram Auto Insert Mode</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">WhatsApp Auto Insert</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Telegram Auto Insert</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Discord</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Twitter/X</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Instagram</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">ChatGPT Auto Insert Mode</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Kick Auto Insert Mode</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Deepseek Auto Insert Mode</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">ChatGPT Auto Insert</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Kick Auto Insert</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Deepseek Auto Insert</span>
                         </div>
                     </div>
                     
@@ -908,8 +997,8 @@
                         Save time with pre-made message templates. Works across all major messaging platforms with intelligent auto-detection.
                     </p>
                     
-                    <a href="#" class="btn" onclick="openModal('install', 'Universal Message')">📥 Install Message Extension</a>
-                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('universal-message')">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Universal Message')"><span class="emoji-install">📥</span> Install Message Extension</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('universal-message')"><span class="emoji-guide">📖</span> User Guide</a>
                 </div>
             </div>
         </div>
@@ -924,11 +1013,11 @@
 
         <!-- Final CTA -->
         <div style="background: var(--bg-secondary); padding: 60px 40px; border-radius: 20px; margin: 50px 0; border: 1px solid var(--border);">
-            <h2 style="font-size: 2.8em; margin-bottom: 20px; color: var(--text-primary);">🚀 Boost Your Productivity Today!</h2>
+            <h2 style="font-size: 2.8em; margin-bottom: 20px; color: var(--text-primary);"><span class="emoji-rocket">🚀</span> Boost Your Productivity Today!</h2>
             <p style="font-size: 1.3em; margin-bottom: 35px; color: var(--text-secondary);">
                 Professional tools for enhanced browsing experience
             </p>
-            <a href="#" class="btn" onclick="openModal('install', 'All Extensions Bundle')">🌟 Get All Extensions</a>
+            <a href="#" class="btn" onclick="openModal('install', 'All Extensions Bundle')"><span class="emoji-install">🌟</span> Get All Extensions</a>
         </div>
     </div>
 
@@ -956,7 +1045,7 @@
                 icon: '🔊',
                 content: `
                     <div class="guide-section">
-                        <h3>🎯 Getting Started</h3>
+                        <h3><span class="emoji-guide">🎯</span> Getting Started</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -981,7 +1070,7 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>🎛️ Equalizer Features</h3>
+                        <h3><span class="emoji-sound">🎛️</span> Equalizer Features</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -998,17 +1087,17 @@
                                 <h4>Smart Presets</h4>
                                 <p>Use one-click presets for different content types:</p>
                                 <ul class="feature-list">
-                                    <li>🎵 <strong>Music:</strong> Balanced sound for music streaming</li>
-                                    <li>🎬 <strong>Movie:</strong> Enhanced dialogue and effects</li>
-                                    <li>🎮 <strong>Gaming:</strong> Immersive gaming experience</li>
-                                    <li>🎙️ <strong>Podcast:</strong> Clear voice optimization</li>
+                                    <li><span class="emoji-sound">🎵</span> <strong>Music:</strong> Balanced sound for music streaming</li>
+                                    <li><span class="emoji-sound">🎬</span> <strong>Movie:</strong> Enhanced dialogue and effects</li>
+                                    <li><span class="emoji-sound">🎮</span> <strong>Gaming:</strong> Immersive gaming experience</li>
+                                    <li><span class="emoji-sound">🎙️</span> <strong>Podcast:</strong> Clear voice optimization</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <div class="guide-section">
-                        <h3>⚡ Advanced Features</h3>
+                        <h3><span class="emoji-install">⚡</span> Advanced Features</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1033,7 +1122,7 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>🔧 Troubleshooting</h3>
+                        <h3><span class="emoji-guide">🔧</span> Troubleshooting</h3>
                         <p><strong>No sound?</strong> Check if the extension is enabled and refresh the page.</p>
                         <p><strong>Distortion?</strong> Reduce volume boost level or adjust equalizer settings.</p>
                         <p><strong>Not working on specific site?</strong> Try disabling other audio extensions.</p>
@@ -1045,7 +1134,7 @@
                 icon: '🔗',
                 content: `
                     <div class="guide-section">
-                        <h3>🎯 Getting Started</h3>
+                        <h3><span class="emoji-guide">🎯</span> Getting Started</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1063,7 +1152,7 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>🚀 Shortening Methods</h3>
+                        <h3><span class="emoji-rocket">🚀</span> Shortening Methods</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1088,7 +1177,7 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>📊 Analytics & Management</h3>
+                        <h3><span class="emoji-guide">📊</span> Analytics & Management</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1114,12 +1203,12 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>⚡ Advanced Features</h3>
+                        <h3><span class="emoji-install">⚡</span> Advanced Features</h3>
                         <ul class="feature-list">
-                            <li>🔒 <strong>Password Protection:</strong> Secure your shortened links</li>
-                            <li>📅 <strong>Expiration Dates:</strong> Set link expiration times</li>
-                            <li>🌍 <strong>Geo-Targeting:</strong> Redirect based on location</li>
-                            <li>📱 <strong>QR Codes:</strong> Generate QR codes for shortened links</li>
+                            <li><span class="emoji-link">🔒</span> <strong>Password Protection:</strong> Secure your shortened links</li>
+                            <li><span class="emoji-link">📅</span> <strong>Expiration Dates:</strong> Set link expiration times</li>
+                            <li><span class="emoji-link">🌍</span> <strong>Geo-Targeting:</strong> Redirect based on location</li>
+                            <li><span class="emoji-link">📱</span> <strong>QR Codes:</strong> Generate QR codes for shortened links</li>
                         </ul>
                     </div>
                 `
@@ -1129,7 +1218,7 @@
                 icon: '💬',
                 content: `
                     <div class="guide-section">
-                        <h3>🎯 Getting Started</h3>
+                        <h3><span class="emoji-guide">🎯</span> Getting Started</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1141,26 +1230,29 @@
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h4>Navigate to Supported Platform</h4>
-                                <p>Open WhatsApp Web, Telegram, Discord, Twitter, or Instagram.</p>
+                                <p>Open any supported messaging platform in your browser.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="guide-section">
-                        <h3>📱 Platform Support</h3>
+                        <h3><span class="emoji-message">📱</span> Platform Support</h3>
                         <div class="platform-badges">
-                            <span class="platform-badge">WhatsApp Web</span>
-                            <span class="platform-badge">Telegram Web</span>
+                            <span class="platform-badge auto-insert">WhatsApp Auto Insert Mode</span>
+                            <span class="platform-badge auto-insert">Telegram Auto Insert Mode</span>
                             <span class="platform-badge">Discord</span>
                             <span class="platform-badge">Twitter/X</span>
                             <span class="platform-badge">Instagram</span>
-                            <span class="platform-badge">ChatGPT</span>
+                            <span class="platform-badge auto-insert">ChatGPT Auto Insert Mode</span>
+                            <span class="platform-badge auto-insert">Kick Auto Insert Mode</span>
+                            <span class="platform-badge auto-insert">Deepseek Auto Insert Mode</span>
                         </div>
-                        <p>The extension automatically detects the platform and adjusts functionality accordingly.</p>
+                        <p><strong>Auto Insert Mode:</strong> Messages automatically typed into input fields</p>
+                        <p><strong>Standard Mode:</strong> Copy to clipboard for manual pasting</p>
                     </div>
 
                     <div class="guide-section">
-                        <h3>💬 Using Templates</h3>
+                        <h3><span class="emoji-message">💬</span> Using Templates</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1181,15 +1273,15 @@
                                 <h4>Insert Message</h4>
                                 <p>Choose insertion method:</p>
                                 <ul class="feature-list">
-                                    <li>📝 <strong>Type:</strong> Automatically types message into input field</li>
-                                    <li>📋 <strong>Copy:</strong> Copies to clipboard for manual pasting</li>
+                                    <li><span class="emoji-message">📝</span> <strong>Auto Insert:</strong> Automatically types message into input field</li>
+                                    <li><span class="emoji-message">📋</span> <strong>Copy:</strong> Copies to clipboard for manual pasting</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
                     <div class="guide-section">
-                        <h3>✨ Template Management</h3>
+                        <h3><span class="emoji-install">✨</span> Template Management</h3>
                         <div class="step">
                             <div class="step-number">1</div>
                             <div class="step-content">
@@ -1214,12 +1306,12 @@
                     </div>
 
                     <div class="guide-section">
-                        <h3>⚡ Smart Features</h3>
+                        <h3><span class="emoji-rocket">⚡</span> Smart Features</h3>
                         <ul class="feature-list">
-                            <li>🔍 <strong>Auto-Detection:</strong> Automatically detects platform type</li>
-                            <li>🎨 <strong>Dark Mode:</strong> Comfortable dark interface</li>
-                            <li>🔧 <strong>Customization:</strong> Create unlimited templates</li>
-                            <li>⚡ <strong>Quick Access:</strong> Keyboard shortcuts support</li>
+                            <li><span class="emoji-message">🔍</span> <strong>Auto-Detection:</strong> Automatically detects platform type</li>
+                            <li><span class="emoji-theme">🎨</span> <strong>Dark Mode:</strong> Comfortable dark interface</li>
+                            <li><span class="emoji-message">🔧</span> <strong>Customization:</strong> Create unlimited templates</li>
+                            <li><span class="emoji-install">⚡</span> <strong>Quick Access:</strong> Keyboard shortcuts support</li>
                         </ul>
                     </div>
                 `
