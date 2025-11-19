@@ -71,13 +71,14 @@
             background: var(--bg-primary);
             border-radius: 20px;
             padding: 0;
-            max-width: 500px;
+            max-width: 800px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             border: 1px solid var(--border);
             animation: slideUp 0.4s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .modal-header {
@@ -85,6 +86,9 @@
             padding: 40px 30px 30px;
             color: white;
             position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .modal-header.install {
@@ -92,6 +96,10 @@
         }
 
         .modal-header.uninstall {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .modal-header.guide {
             background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
@@ -147,6 +155,95 @@
             text-align: left;
         }
 
+        .guide-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .guide-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.1em;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .platform-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .platform-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
         .feedback-form {
             margin: 20px 0;
         }
@@ -200,7 +297,7 @@
             border: 1px solid var(--border);
         }
 
-        .step-number {
+        .step-number-small {
             background: var(--primary);
             color: white;
             width: 30px;
@@ -540,11 +637,31 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
+            .modal-content {
+                width: 95%;
+                max-height: 85vh;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- MODAL POPUP -->
+    <!-- GUIDE MODAL -->
+    <div id="guideModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header guide" id="guideHeader">
+                <button class="modal-close" onclick="closeGuideModal()">×</button>
+                <div class="modal-icon" id="guideIcon">📖</div>
+                <h2 class="modal-title" id="guideTitle">User Guide</h2>
+                <p class="modal-subtitle" id="guideSubtitle">Complete usage instructions</p>
+            </div>
+            
+            <div class="modal-body" id="guideContent">
+                <!-- Guide content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTALL/UNINSTALL MODAL -->
     <div id="modalOverlay" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header" id="modalHeader">
@@ -561,22 +678,22 @@
                     
                     <div class="features-grid">
                         <div class="feature-step">
-                            <div class="step-number">1</div>
+                            <div class="step-number-small">1</div>
                             <div>Pin to toolbar</div>
                         </div>
                         <div class="feature-step">
-                            <div class="step-number">2</div>
+                            <div class="step-number-small">2</div>
                             <div>Click extension icon</div>
                         </div>
                         <div class="feature-step">
-                            <div class="step-number">3</div>
+                            <div class="step-number-small">3</div>
                             <div>Start using features</div>
                         </div>
                     </div>
                     
                     <div style="text-align: center; margin-top: 25px;">
                         <button class="btn" onclick="closeModal()">🚀 Got It!</button>
-                        <a href="#user-guide" class="btn btn-secondary" onclick="closeModal()">📖 User Guide</a>
+                        <button class="btn btn-secondary" onclick="openGuideModal(currentExtension)">📖 User Guide</button>
                     </div>
                 </div>
                 
@@ -702,8 +819,8 @@
                         Professional audio quality with zero distortion.
                     </p>
                     
-                    <a href="#" class="btn">📥 Install Sound Booster</a>
-                    <a href="#" class="btn btn-secondary">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Sound Booster Pro')">📥 Install Sound Booster</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('sound-booster')">📖 User Guide</a>
                 </div>
             </div>
 
@@ -740,8 +857,8 @@
                         Clean interface with powerful features.
                     </p>
                     
-                    <a href="#" class="btn">📥 Install Link Shortener</a>
-                    <a href="#" class="btn btn-secondary">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Link Shortener Pro')">📥 Install Link Shortener</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('link-shortener')">📖 User Guide</a>
                 </div>
             </div>
 
@@ -757,7 +874,7 @@
                     <div class="features">
                         <div class="feature">
                             <h4>📱 Multi-Platform</h4>
-                            <p>WhatsApp, Telegram, Discord</p>
+                            <p>WhatsApp, Telegram, Discord etc.</p>
                         </div>
                         <div class="feature">
                             <h4>🚀 Quick Templates</h4>
@@ -776,12 +893,14 @@
                     <div style="background: var(--bg-primary); padding: 20px; border-radius: 12px; margin: 25px 0; border: 1px solid var(--border);">
                         <h4 style="margin-bottom: 10px; color: var(--text-primary);">🔄 Platform Support:</h4>
                         <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">WhatsApp</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Telegram</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">WhatsApp Auto Insert Mode</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Telegram Auto Insert Mode</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Discord</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Twitter/X</span>
                             <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Instagram</span>
-                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">ChatGPT</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">ChatGPT Auto Insert Mode</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Kick Auto Insert Mode</span>
+                            <span style="background: var(--primary); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9em;">Deepseek Auto Insert Mode</span>
                         </div>
                     </div>
                     
@@ -789,8 +908,8 @@
                         Save time with pre-made message templates. Works across all major messaging platforms with intelligent auto-detection.
                     </p>
                     
-                    <a href="#" class="btn">📥 Install Message Extension</a>
-                    <a href="#" class="btn btn-secondary">📖 User Guide</a>
+                    <a href="#" class="btn" onclick="openModal('install', 'Universal Message')">📥 Install Message Extension</a>
+                    <a href="#" class="btn btn-secondary" onclick="openGuideModal('universal-message')">📖 User Guide</a>
                 </div>
             </div>
         </div>
@@ -809,7 +928,7 @@
             <p style="font-size: 1.3em; margin-bottom: 35px; color: var(--text-secondary);">
                 Professional tools for enhanced browsing experience
             </p>
-            <a href="#" class="btn">🌟 Get All Extensions</a>
+            <a href="#" class="btn" onclick="openModal('install', 'All Extensions Bundle')">🌟 Get All Extensions</a>
         </div>
     </div>
 
@@ -825,16 +944,291 @@
     </div>
 
     <script>
-        // URL parametrelerini kontrol et
-        const urlParams = new URLSearchParams(window.location.search);
-        const action = urlParams.get('action');
-        const extension = urlParams.get('extension');
-
+        // Global variables
         let countdownTimer;
         let secondsLeft = 10;
+        let currentExtension = '';
 
-        // Modal aç
+        // Guide content definitions
+        const guideContents = {
+            'sound-booster': {
+                title: 'Sound Booster Pro - User Guide',
+                icon: '🔊',
+                content: `
+                    <div class="guide-section">
+                        <h3>🎯 Getting Started</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Install & Pin Extension</h4>
+                                <p>After installation, click the puzzle icon in Chrome toolbar and pin Sound Booster for easy access.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Access Sound Controls</h4>
+                                <p>Click the Sound Booster icon in toolbar to open the control panel.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Adjust Volume</h4>
+                                <p>Use the volume slider to boost sound up to 500%. Start with small increments.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>🎛️ Equalizer Features</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>3-Band Equalizer</h4>
+                                <p>Adjust Bass, Mid, and Treble frequencies independently for perfect sound.</p>
+                                <p><strong>Bass:</strong> Enhance low frequencies for deeper sound</p>
+                                <p><strong>Mid:</strong> Control vocal and instrument clarity</p>
+                                <p><strong>Treble:</strong> Adjust high frequencies for crispness</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Smart Presets</h4>
+                                <p>Use one-click presets for different content types:</p>
+                                <ul class="feature-list">
+                                    <li>🎵 <strong>Music:</strong> Balanced sound for music streaming</li>
+                                    <li>🎬 <strong>Movie:</strong> Enhanced dialogue and effects</li>
+                                    <li>🎮 <strong>Gaming:</strong> Immersive gaming experience</li>
+                                    <li>🎙️ <strong>Podcast:</strong> Clear voice optimization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>⚡ Advanced Features</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Auto-Boost</h4>
+                                <p>Enable automatic volume normalization across all websites.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Per-Site Settings</h4>
+                                <p>Save different settings for YouTube, Netflix, Spotify, etc.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Dark Mode</h4>
+                                <p>Toggle dark mode for comfortable nighttime browsing.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>🔧 Troubleshooting</h3>
+                        <p><strong>No sound?</strong> Check if the extension is enabled and refresh the page.</p>
+                        <p><strong>Distortion?</strong> Reduce volume boost level or adjust equalizer settings.</p>
+                        <p><strong>Not working on specific site?</strong> Try disabling other audio extensions.</p>
+                    </div>
+                `
+            },
+            'link-shortener': {
+                title: 'Link Shortener Pro - User Guide',
+                icon: '🔗',
+                content: `
+                    <div class="guide-section">
+                        <h3>🎯 Getting Started</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Install Extension</h4>
+                                <p>After installation, the extension will be available in your toolbar.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Access Shortener</h4>
+                                <p>Click the Link Shortener icon or right-click any link to shorten.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>🚀 Shortening Methods</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Toolbar Method</h4>
+                                <p>Click extension icon → Paste URL → Get shortened link</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Right-Click Method</h4>
+                                <p>Right-click any link → "Shorten this link" → Copy shortened URL</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Current Page</h4>
+                                <p>Click extension icon while on any page to shorten current URL.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>📊 Analytics & Management</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>View Click Statistics</h4>
+                                <p>Open extension → History tab → See clicks for each shortened link</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Custom Names</h4>
+                                <p>Create memorable short URLs with custom slugs.</p>
+                                <p><strong>Example:</strong> mylink → yoursite.com/mylink</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Link History</h4>
+                                <p>Access all previously shortened links with one click.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>⚡ Advanced Features</h3>
+                        <ul class="feature-list">
+                            <li>🔒 <strong>Password Protection:</strong> Secure your shortened links</li>
+                            <li>📅 <strong>Expiration Dates:</strong> Set link expiration times</li>
+                            <li>🌍 <strong>Geo-Targeting:</strong> Redirect based on location</li>
+                            <li>📱 <strong>QR Codes:</strong> Generate QR codes for shortened links</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'universal-message': {
+                title: 'Universal Message - User Guide',
+                icon: '💬',
+                content: `
+                    <div class="guide-section">
+                        <h3>🎯 Getting Started</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Install & Pin Extension</h4>
+                                <p>Pin the extension to toolbar for quick access to message templates.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Navigate to Supported Platform</h4>
+                                <p>Open WhatsApp Web, Telegram, Discord, Twitter, or Instagram.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>📱 Platform Support</h3>
+                        <div class="platform-badges">
+                            <span class="platform-badge">WhatsApp Web</span>
+                            <span class="platform-badge">Telegram Web</span>
+                            <span class="platform-badge">Discord</span>
+                            <span class="platform-badge">Twitter/X</span>
+                            <span class="platform-badge">Instagram</span>
+                            <span class="platform-badge">ChatGPT</span>
+                        </div>
+                        <p>The extension automatically detects the platform and adjusts functionality accordingly.</p>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>💬 Using Templates</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Open Extension</h4>
+                                <p>Click the Universal Message icon in toolbar while on supported platform.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Select Template</h4>
+                                <p>Choose from pre-made templates or create your own.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Insert Message</h4>
+                                <p>Choose insertion method:</p>
+                                <ul class="feature-list">
+                                    <li>📝 <strong>Type:</strong> Automatically types message into input field</li>
+                                    <li>📋 <strong>Copy:</strong> Copies to clipboard for manual pasting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>✨ Template Management</h3>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Create New Templates</h4>
+                                <p>Click "+ Add Template" button to create custom message templates.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Edit & Organize</h4>
+                                <p>Drag to reorder, edit existing templates, or delete unused ones.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Categorize</h4>
+                                <p>Organize templates by category (Work, Personal, Quick Replies, etc.)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <h3>⚡ Smart Features</h3>
+                        <ul class="feature-list">
+                            <li>🔍 <strong>Auto-Detection:</strong> Automatically detects platform type</li>
+                            <li>🎨 <strong>Dark Mode:</strong> Comfortable dark interface</li>
+                            <li>🔧 <strong>Customization:</strong> Create unlimited templates</li>
+                            <li>⚡ <strong>Quick Access:</strong> Keyboard shortcuts support</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // Modal functions
         function openModal(type, extensionName) {
+            currentExtension = extensionName.toLowerCase().replace(/\s+/g, '-');
             const modal = document.getElementById('modalOverlay');
             const header = document.getElementById('modalHeader');
             const icon = document.getElementById('modalIcon');
@@ -844,7 +1238,6 @@
             const uninstallContent = document.getElementById('uninstallContent');
 
             if (type === 'install') {
-                // INSTALL MODAL
                 header.className = 'modal-header install';
                 icon.textContent = '🎉';
                 title.textContent = 'Thank You!';
@@ -852,7 +1245,6 @@
                 installContent.style.display = 'block';
                 uninstallContent.style.display = 'none';
             } else if (type === 'uninstall') {
-                // UNINSTALL MODAL
                 header.className = 'modal-header uninstall';
                 icon.textContent = '😔';
                 title.textContent = 'We\'ll Miss You!';
@@ -865,17 +1257,36 @@
             startCountdown();
         }
 
-        // Modal kapat
         function closeModal() {
             const modal = document.getElementById('modalOverlay');
             modal.style.display = 'none';
             clearInterval(countdownTimer);
-            
-            // URL'den parametreleri temizle
-            window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        // Geri sayım başlat
+        function openGuideModal(extensionId) {
+            currentExtension = extensionId;
+            const guide = guideContents[extensionId];
+            if (!guide) return;
+
+            const modal = document.getElementById('guideModal');
+            const header = document.getElementById('guideHeader');
+            const icon = document.getElementById('guideIcon');
+            const title = document.getElementById('guideTitle');
+            const content = document.getElementById('guideContent');
+
+            icon.textContent = guide.icon;
+            title.textContent = guide.title;
+            content.innerHTML = guide.content;
+
+            modal.style.display = 'flex';
+            closeModal(); // Close install modal if open
+        }
+
+        function closeGuideModal() {
+            const modal = document.getElementById('guideModal');
+            modal.style.display = 'none';
+        }
+
         function startCountdown() {
             secondsLeft = 10;
             const countdownElement = document.getElementById('countdown');
@@ -891,7 +1302,6 @@
             }, 1000);
         }
 
-        // Feedback gönder
         function submitFeedback() {
             const reason = document.getElementById('uninstallReason').value;
             const suggestions = document.getElementById('suggestions').value;
@@ -901,9 +1311,8 @@
                 return;
             }
 
-            // Burada feedback'i analytics servisine gönderebilirsiniz
             console.log('Feedback submitted:', { 
-                extension: extension, 
+                extension: currentExtension, 
                 reason: reason, 
                 suggestions: suggestions 
             });
@@ -912,27 +1321,36 @@
             closeModal();
         }
 
-        // Sayfa yüklendiğinde modal'ı kontrol et
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            const extension = urlParams.get('extension');
+
             if (action && extension) {
-                // 1 saniye sonra modal'ı aç (sayfanın yüklenmesi için)
                 setTimeout(() => {
                     openModal(action, extension);
                 }, 1000);
             }
         });
 
-        // ESC tuşu ile kapat
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
+                closeModal();
+                closeGuideModal();
+            }
+        });
+
+        // Overlay click to close
+        document.getElementById('modalOverlay')?.addEventListener('click', function(event) {
+            if (event.target === this) {
                 closeModal();
             }
         });
 
-        // Overlay'e tıklayınca kapat
-        document.getElementById('modalOverlay').addEventListener('click', function(event) {
+        document.getElementById('guideModal')?.addEventListener('click', function(event) {
             if (event.target === this) {
-                closeModal();
+                closeGuideModal();
             }
         });
 
